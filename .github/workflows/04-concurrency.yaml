@@ -1,0 +1,14 @@
+name: concurrency
+on: [push]
+concurrency:
+  # this workflow should be triggered for any branch only once
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true # multiple runs are cancelled, only the latest is run
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: step1
+        run: sleep 10
+        
